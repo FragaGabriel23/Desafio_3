@@ -1,0 +1,24 @@
+@use '../../sass/variables' as *;
+
+.NavBar {
+    display: flex;
+    background-color: $color1;
+    padding: 3vh 0 0 3vw;
+
+    font-family: 'Poppins';
+    font-weight: 800;
+    font-size: 1.5vw;
+    color: $white;
+
+    a {
+        padding: 2vh 2vw 2vh 2vw;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+}
+
+.selected {
+    background-color: $white;
+    color: $color1;
+}
