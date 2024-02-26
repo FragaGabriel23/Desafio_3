@@ -33,12 +33,17 @@ const Tasks = ({ data }) => {
   const [Open, setOpen] = useState(false);
   const [ModalMode, setModalMode] = useState("");
   const [TaskSelect, setTaskSelect] = useState("");
-  
+
   const handleModal = (mode, taskSelect) => {
     setOpen(!Open);
     setModalMode(mode);
     setTaskSelect(taskSelect);
-  }
+  };
+
+  const deleteTask = (id) => {
+    const updatedTasks = tasks.filter(task => task.id !== id);
+    setTasks(updatedTasks);
+  };
 
   return (
     <>
@@ -72,8 +77,8 @@ const Tasks = ({ data }) => {
                 </div>
 
                 <div className="Tasks__options">
-                  <img src={EditIcon} alt="Edit" onClick={()=> handleModal("Edit", task)} />
-                  <img src={DellIcon} alt="Dell" onClick={()=> handleModal("Dell", task)} />
+                  <img src={EditIcon} alt="Edit" onClick={() => handleModal("Edit", task)} />
+                  <img src={DellIcon} alt="Dell" onClick={() => handleModal("Dell", task)} />
                 </div>
 
               </div>
@@ -91,7 +96,7 @@ const Tasks = ({ data }) => {
 
         </main>
       </section>
-      <Modal isOpen={Open} mode={ModalMode} taskSelect={TaskSelect} setOpen={setOpen}/>
+      <Modal isOpen={Open} mode={ModalMode} taskSelect={TaskSelect} setOpen={setOpen} deleteTask={deleteTask} />
     </>
   )
 }
