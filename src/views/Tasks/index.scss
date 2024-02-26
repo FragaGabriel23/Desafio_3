@@ -63,6 +63,7 @@ section {
 
     img {
         width: 2vw;
+        cursor: pointer;
     }
 }
 
@@ -265,4 +266,6 @@ section {
     font-weight: 400;
     font-style: italic;
     color: $white;
+
+    cursor: pointer;
 }

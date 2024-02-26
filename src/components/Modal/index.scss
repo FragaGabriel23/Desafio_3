@@ -1,0 +1,64 @@
+@use '../../sass/variables' as *;
+@use '../Buttons/Button1/index.scss' as *;
+
+.Modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.505);
+}
+
+.Modal__main {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: $white;
+    border-radius: 10px;
+    text-align: center;
+    padding: 4vh 1vw;
+
+    h1 {
+        font-weight: 600;
+        font-size: 2vw;
+    }
+
+    h2 {
+        font-weight: 400;
+        font-size: 1.5vw;
+    }
+}
+
+.Modal__buttons {
+    display: flex;
+    justify-content: center;
+    column-gap: 1vw;
+
+    button {
+        width: 16vw;
+        height: 10vh;
+        font-weight: 600;
+        font-size: 2vw;
+        border-radius: 5px;
+    }
+
+    &--blue {
+        @include Button1($color1, #0e26ff, none, $white, $white);
+    }
+
+    &--red {
+        @include Button1($white, #d9534f, 1px solid $black, $black, $white);
+    }
+
+    &--green {
+        @include Button1($white, #4fd96b, 1px solid $black, $black, $white);
+    }
+
+}

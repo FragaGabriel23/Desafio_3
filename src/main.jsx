@@ -2,7 +2,7 @@ import './index.scss';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, } from "react-router-dom";
-// import { tasks } from "./mock/tasks.mock";
+import tasks from "./mock/tasks.mock";
 import Tasks from './views/Tasks/Tasks';
 import Organization from './views/Organization/Organization'
 
@@ -10,7 +10,7 @@ import Organization from './views/Organization/Organization'
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Tasks/>
+    element: <Tasks data={tasks}/>
   },
   {
     path: "/organization",

@@ -10,3 +10,5 @@ const tasks = [
     { "id": 9, "title": "Estudar programação", "description": "Entrar na plataforma dos alunos para estudar", "completed": false },
     { "id": 10, "title": "shopping", "description": "Fazer algumas compras no shopping", "completed": true }
 ];
+
+export default tasks

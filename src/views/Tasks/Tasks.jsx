@@ -1,16 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.scss';
 import NavBar from '../../components/NavBar/NavBar';
 import DellIcon from '../../assets/Icons/dellIcon.svg';
 import EditIcon from '../../assets/Icons/editIcon.svg';
+import Modal from '../../components/Modal/Modal';
 
-const Tasks = () => {
+const Tasks = ({ data }) => {
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const [tasks, setTasks] = useState(data);
+  const [newTask, setNewTask] = useState({
+    id: tasks.length + 1,
+    title: '',
+    description: '',
+    completed: false
+  });
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
+    // Adiciona a nova tarefa à lista de tarefas
+    setTasks([...tasks, newTask]);
+
+    // Limpa o campo do formulário
+    setNewTask({
+      id: tasks.length + 1,
+      title: '',
+      description: '',
+      completed: false
+    });
   };
+
+  const [Open, setOpen] = useState(false);
+  const [ModalMode, setModalMode] = useState("");
+  const [TaskSelect, setTaskSelect] = useState("");
+  
+  const handleModal = (mode, taskSelect) => {
+    setOpen(!Open);
+    setModalMode(mode);
+    setTaskSelect(taskSelect);
+  }
 
   return (
     <>
@@ -32,40 +60,30 @@ const Tasks = () => {
 
           <div className="Tasks__container">
 
-            <div className="Tasks__task">
+            {tasks.map((task) => (
 
-              <p>Limpar a casa</p>
+              <div key={task.id} className="Tasks__task">
 
-              <div class="checkbox-wrapper-19">
-                <input id="1" type="checkbox"/>
-                <label class="check-box" for="1"></label>
+                <p>{task.title}</p>
+
+                <div className="checkbox-wrapper-19">
+                  <input id={task.id} type="checkbox" />
+                  <label className="check-box" htmlFor={task.id}></label>
+                </div>
+
+                <div className="Tasks__options">
+                  <img src={EditIcon} alt="Edit" onClick={()=> handleModal("Edit", task)} />
+                  <img src={DellIcon} alt="Dell" onClick={()=> handleModal("Dell", task)} />
+                </div>
+
               </div>
 
-              <div className="Tasks__options">
-                <img src={EditIcon} alt="Edit" />
-                <img src={DellIcon} alt="Dell" />
-              </div>
-
-            </div>
-
-            <div className="Tasks__task">
-
-              <p>Responder e-mails</p>
-
-              <div class="checkbox-wrapper-19">
-                <input id="2" type="checkbox"/>
-                <label class="check-box" for="2"></label>
-              </div>
-
-              <div className="Tasks__options">
-                <img src={EditIcon} alt="Edit" />
-                <img src={DellIcon} alt="Dell" />
-              </div>
-
-            </div>
+            ))}
 
             <form className='Task__form' onSubmit={handleSubmit}>
-              <input className='Task__input' type="text" id="Task" placeholder='Nova tarefa...' required />
+              <input className='Task__input' type="text" id="Task" placeholder='Nova tarefa...' required value={newTask.title} onChange={(e) => setNewTask(
+                { ...newTask, title: e.target.value, description: e.target.value }
+              )} />
               <button className='Task__buttonAdd' type="submit">+</button>
             </form>
 
@@ -73,6 +91,7 @@ const Tasks = () => {
 
         </main>
       </section>
+      <Modal isOpen={Open} mode={ModalMode} taskSelect={TaskSelect} setOpen={setOpen}/>
     </>
   )
 }
