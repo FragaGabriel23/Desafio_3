@@ -8,14 +8,17 @@ import Modal from '../../components/Modal/Modal';
 const Tasks = ({ data }) => {
 
   const [tasks, setTasks] = useState(data);
-
   const [newTask, setNewTask] = useState({
     id: tasks.length + 1,
     title: '',
     description: '',
     completed: false
   });
-
+  const [Open, setOpen] = useState(false);
+  const [ModalMode, setModalMode] = useState("");
+  const [TaskSelect, setTaskSelect] = useState("");
+  const [editedTask, setEditedTask] = useState("");
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -31,11 +34,6 @@ const Tasks = ({ data }) => {
     });
   };
 
-  const [Open, setOpen] = useState(false);
-  const [ModalMode, setModalMode] = useState("");
-  const [TaskSelect, setTaskSelect] = useState("");
-  const [editedTask, setEditedTask] = useState("");
-  
   const handleModal = (mode, taskSelect) => {
     setOpen(!Open);
     setModalMode(mode);
@@ -44,16 +42,22 @@ const Tasks = ({ data }) => {
   };
 
   const editTask = (id) => {
-    const editedTasks = tasks.with(id - 1, editedTask );
+    const editedTasks = tasks.with(id - 1, editedTask);
     setTasks(editedTasks);
     setOpen(!Open);
-  }
+  };
 
   const deleteTask = (id) => {
     const updatedTasks = tasks.filter(task => task.id !== id);
-    const reoderedTasks = updatedTasks.map((task, index) => ({...task, id: index + 1}));
+    const reoderedTasks = updatedTasks.map((task, index) => ({ ...task, id: index + 1 }));
 
     setTasks(reoderedTasks);
+  };
+
+  const handleChecked = (task) => {
+    const editedCompleted = {...task, completed: !task.completed};
+    const editedCompletedTasks = tasks.with(task.id - 1, editedCompleted);
+    setTasks(editedCompletedTasks); 
   };
 
   return (
@@ -83,7 +87,12 @@ const Tasks = ({ data }) => {
                 <p>{task.title}</p>
 
                 <div className="checkbox-wrapper-19">
-                  <input id={task.id} type="checkbox" />
+                  <input
+                    id={task.id}
+                    type="checkbox"
+                    checked={task.completed}
+                    onChange={() => handleChecked(task)}
+                  />
                   <label className="check-box" htmlFor={task.id}></label>
                 </div>
 
@@ -97,9 +106,14 @@ const Tasks = ({ data }) => {
             ))}
 
             <form className='Task__form' onSubmit={handleSubmit}>
-              <input className='Task__input' type="text" id="Task" placeholder='Nova tarefa...' required value={newTask.title} onChange={(e) => setNewTask(
-                { ...newTask, title: e.target.value, description: e.target.value }
-              )} />
+              <input
+                className='Task__input'
+                type="text" id="Task"
+                placeholder='Nova tarefa...'
+                required
+                value={newTask.title}
+                onChange={(e) => setNewTask({ ...newTask, title: e.target.value, description: e.target.value })}
+              />
               <button className='Task__buttonAdd' type="submit">+</button>
             </form>
 
@@ -107,7 +121,16 @@ const Tasks = ({ data }) => {
 
         </main>
       </section>
-      <Modal isOpen={Open} mode={ModalMode} taskSelect={TaskSelect} setOpen={setOpen} deleteTask={deleteTask} editedTask={editedTask} setEditedTask={setEditedTask} editTask={editTask}/>
+      <Modal
+        isOpen={Open}
+        mode={ModalMode}
+        taskSelect={TaskSelect}
+        setOpen={setOpen}
+        deleteTask={deleteTask}
+        editedTask={editedTask}
+        setEditedTask={setEditedTask}
+        editTask={editTask}
+      />
     </>
   )
 }
