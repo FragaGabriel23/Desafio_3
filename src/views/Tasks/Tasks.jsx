@@ -8,6 +8,7 @@ import Modal from '../../components/Modal/Modal';
 const Tasks = ({ data }) => {
 
   const [tasks, setTasks] = useState(data);
+
   const [newTask, setNewTask] = useState({
     id: tasks.length + 1,
     title: '',
@@ -18,10 +19,10 @@ const Tasks = ({ data }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Adiciona a nova tarefa à lista de tarefas
+    // Add the new task to the task list
     setTasks([...tasks, newTask]);
 
-    // Limpa o campo do formulário
+    // Clears form input
     setNewTask({
       id: tasks.length + 1,
       title: '',
@@ -33,16 +34,26 @@ const Tasks = ({ data }) => {
   const [Open, setOpen] = useState(false);
   const [ModalMode, setModalMode] = useState("");
   const [TaskSelect, setTaskSelect] = useState("");
-
+  const [editedTask, setEditedTask] = useState("");
+  
   const handleModal = (mode, taskSelect) => {
     setOpen(!Open);
     setModalMode(mode);
     setTaskSelect(taskSelect);
+    setEditedTask(taskSelect)
   };
+
+  const editTask = (id) => {
+    const editedTasks = tasks.with(id - 1, editedTask );
+    setTasks(editedTasks);
+    setOpen(!Open);
+  }
 
   const deleteTask = (id) => {
     const updatedTasks = tasks.filter(task => task.id !== id);
-    setTasks(updatedTasks);
+    const reoderedTasks = updatedTasks.map((task, index) => ({...task, id: index + 1}));
+
+    setTasks(reoderedTasks);
   };
 
   return (
@@ -96,7 +107,7 @@ const Tasks = ({ data }) => {
 
         </main>
       </section>
-      <Modal isOpen={Open} mode={ModalMode} taskSelect={TaskSelect} setOpen={setOpen} deleteTask={deleteTask} />
+      <Modal isOpen={Open} mode={ModalMode} taskSelect={TaskSelect} setOpen={setOpen} deleteTask={deleteTask} editedTask={editedTask} setEditedTask={setEditedTask} editTask={editTask}/>
     </>
   )
 }
