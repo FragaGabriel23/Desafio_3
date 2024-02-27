@@ -25,14 +25,20 @@
     text-align: center;
     padding: 4vh 1vw;
 
+
     h1 {
         font-weight: 600;
         font-size: 2vw;
     }
 
-    h2 {
+    input {
+        border-radius: 5px;
+        background-color: #ececec;
+        text-align: center;
+        border: none;
         font-weight: 400;
         font-size: 1.5vw;
+
     }
 }
 

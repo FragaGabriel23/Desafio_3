@@ -31,6 +31,7 @@ const Modal = ({ isOpen, mode, taskSelect, setOpen, deleteTask, editedTask, setE
             <div className='Modal'>
                 <div className="Modal__main">
                     <h1>Deseja excluir esse item?</h1>
+                    <h2>{taskSelect.title}</h2>
                     <h2>{taskSelect.description}{taskSelect.completed ? ": Completo" : ": Incompleto"}</h2>
                     <div className='Modal__buttons'>
                         <Button1 text="Não" classMod="Modal__buttons--blue" onClick={() => setOpen(!isOpen)} />
