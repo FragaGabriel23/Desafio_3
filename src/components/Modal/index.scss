@@ -1,5 +1,6 @@
 @use '../../sass/variables' as *;
 @use '../Buttons/Button1/index.scss' as *;
+@use '../../sass/mediaQueries' as *;
 
 .Modal {
     position: fixed;
@@ -25,10 +26,50 @@
     text-align: center;
     padding: 4vh 1vw;
 
+    @include respond-to-small {
+        width: 80vw;
+    }
+
+    @include respond-to-medium {
+        width: 70vw;
+    }
+
+    @include respond-to-large {
+        width: 60vw;
+    }
 
     h1 {
         font-weight: 600;
         font-size: 2vw;
+
+        @include respond-to-small {
+            font-size: 4vw;
+        }
+
+        @include respond-to-medium {
+            font-size: 3.5vw;
+        }
+
+        @include respond-to-large {
+            font-size: 2.5vw;
+        }
+    }
+
+    h2 {
+        font-weight: 400;
+        font-size: 1.5vw;
+
+        @include respond-to-small {
+            font-size: 3.5vw;
+        }
+
+        @include respond-to-medium {
+            font-size: 3vw;
+        }
+
+        @include respond-to-large {
+            font-size: 2vw;
+        }
     }
 
     input {
@@ -46,12 +87,30 @@
     justify-content: center;
     column-gap: 1vw;
 
+    @include respond-to-small {
+        column-gap: 3vw;
+    }
+
     button {
         width: 16vw;
         height: 10vh;
         font-weight: 600;
         font-size: 2vw;
         border-radius: 5px;
+
+        @include respond-to-small {
+            width: 30vw;
+            height: 8vh;
+        }
+
+        @include respond-to-medium {
+            width: 25vw;
+            height: 8vh;
+        }
+
+        @include respond-to-large {
+            width: 25vw;
+        }
     }
 
     &--blue {
